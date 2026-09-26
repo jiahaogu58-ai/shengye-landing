@@ -156,14 +156,6 @@ window.SY = {
     .weekly .top span{display:none}
   }
 
-  /* ---------- 工厂实拍 ---------- */
-  .shots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
-  @media(max-width:560px){.shots{grid-template-columns:repeat(2,1fr)}}
-  .shot{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff}
-  .shot img{width:100%;height:96px;object-fit:cover}
-  .shot span{display:block;font-size:10.5px;font-weight:700;color:var(--sub);
-             padding:6px 8px;text-align:center}
-
   /* ---------- 流程 ---------- */
   .steps{margin-top:4px}
   .step{display:flex;gap:13px;padding:14px 0;border-bottom:1px dashed var(--line)}
@@ -364,15 +356,35 @@ window.SY = {
     </div>
   </div>
 
-  <!-- ══════════ 工厂实拍 ══════════ -->
+  <!-- ══════════ 保障 ══════════
+       说明：这里原本放 4 张「工厂实拍」。但那 4 张是 Pexels 免费商用素材图
+       （见 素材库/素材清单.md：只能当背景/氛围，不能当自家案例讲），
+       摆在「Nuestra fábrica / 工厂是我们的」标题下属于不实陈述，已撤下。
+       等 John 提供真实厂房/产线照片后再补回来。 -->
   <div class="section">
-    <h2>Nuestra fábrica</h2>
-    <p class="sub">No somos intermediarios: la planta, la impresión y el armado son nuestros.</p>
-    <div class="shots">
-      <div class="shot"><img src="landing_assets/scene_print_shop_01_426dfc.jpg" alt="Taller de impresión" loading="lazy" decoding="async"><span>Impresión</span></div>
-      <div class="shot"><img src="landing_assets/scene_packaging_box_01_03832b.jpg" alt="Armado de cajas" loading="lazy" decoding="async"><span>Armado</span></div>
-      <div class="shot"><img src="landing_assets/scene_loading_01_6466b6.jpg" alt="Carga de contenedor" loading="lazy" decoding="async"><span>Carga FOB</span></div>
-      <div class="shot"><img src="landing_assets/scene_retail_display_01_805b9f.jpg" alt="Exhibidor en tienda" loading="lazy" decoding="async"><span>En tienda</span></div>
+    <h2>Qué puedes esperar de nosotros</h2>
+    <p class="sub">Cotizamos, producimos y embarcamos desde Ningbo — sin capas de intermediarios.</p>
+    <div class="features">
+      <div class="feature">
+        <div class="ic">📋</div>
+        <h3>Cotización con números completos</h3>
+        <p>Precio FOB, volumen y peso de empaque en la misma respuesta. Puedes comparar flete antes de decidir.</p>
+      </div>
+      <div class="feature">
+        <div class="ic">🧪</div>
+        <h3>Muestra antes de producir</h3>
+        <p>Apruebas estructura, color e impresión antes de comprometer el volumen del pedido.</p>
+      </div>
+      <div class="feature">
+        <div class="ic">📦</div>
+        <h3>Empaque pensado para tu contenedor</h3>
+        <p>Armamos el despiece según las medidas de tu producto para que entre la mayor cantidad por pallet.</p>
+      </div>
+      <div class="feature">
+        <div class="ic">🔎</div>
+        <h3>Revisión antes de embarcar</h3>
+        <p>Revisamos y te enviamos evidencia fotográfica del lote terminado antes de que salga de planta.</p>
+      </div>
     </div>
   </div>
 
@@ -382,8 +394,8 @@ window.SY = {
     <div class="features">
       <div class="feature">
         <div class="ic">🏭</div>
-        <h3>Fábrica directa</h3>
-        <p>Precios FOB Ningbo sin intermediarios. Ves la planta y el costo real.</p>
+        <h3>Trato directo de fábrica</h3>
+        <p>Precios FOB Ningbo sin intermediarios: cotizas con quien produce.</p>
       </div>
       <div class="feature">
         <div class="ic">📐</div>
