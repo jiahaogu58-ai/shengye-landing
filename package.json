@@ -1,0 +1,11 @@
+{
+  "name": "shengye-landing",
+  "version": "1.0.0",
+  "description": "Ningbo Shengye Landing Pages",
+  "main": "landing_importer.html",
+  "scripts": {
+    "start": "python3 -m http.server 8765"
+  },
+  "keywords": ["landing", "shengye"],
+  "license": "MIT"
+}
