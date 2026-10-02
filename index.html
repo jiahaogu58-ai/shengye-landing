@@ -92,6 +92,9 @@ window.SY = {
   .hero h1 em{font-style:normal;color:#a7f3e6}
   .hero .lead{font-size:14.5px;color:rgba(255,255,255,.9);max-width:530px;margin:0 auto 24px}
   .hero-cta{display:flex;flex-direction:column;gap:10px;max-width:320px;margin:0 auto}
+  /* 邮件入口（2026-10-02 加）：收件已统一到企业邮箱，给走采购流程、只认邮件的买家一条路 */
+  .hero-mail{margin:12px auto 0;max-width:340px;font-size:13px;line-height:1.55;color:var(--sub);text-align:center}
+  .hero-mail a{color:#0f766e;text-decoration:underline;word-break:break-all}
   .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;
     background:#fff;color:var(--brand-dark);padding:14px 24px;border-radius:11px;
     font-weight:800;font-size:15.5px;text-decoration:none;box-shadow:0 6px 20px -6px rgba(0,0,0,.4)}
@@ -266,6 +269,8 @@ window.SY = {
     <a href="#" data-lh class="btn-primary">Hablar por WhatsApp <span aria-hidden="true">→</span></a>
     <a href="#cotizar" class="btn-ghost">Solicitar cotización</a>
   </div>
+  <!-- ★ 2026-10-02 加邮件入口：我们收件已统一到企业邮箱；西语区不少买家走采购流程时只认邮件 -->
+  <p class="hero-mail">📧 ¿Prefieres correo? <a href="mailto:hello@go.joggerprint.com?subject=Consulta%20desde%20la%20web%20-%20Ningbo%20Shengye">hello@go.joggerprint.com</a></p>
 </div>
 
 <!-- ══════════ B2B 关键信息条 ══════════ -->
@@ -495,7 +500,9 @@ window.SY = {
           </div>
         </div>
         <button class="submit" type="submit">Enviar por WhatsApp</button>
-        <p class="formnote">Se abrirá WhatsApp con tu resumen listo para enviar.<br>No guardamos nada en esta página.</p>
+        <!-- ★ 2026-10-02：邮件入口。同一个表单，两条路 —— 点了它会把同样的摘要拼成一封邮件 -->
+        <button class="submit" type="button" id="qf-mail" style="margin-top:8px;background:#fff;color:#0f766e;border:1px solid #0f766e">Enviar por correo</button>
+        <p class="formnote">WhatsApp 会直接打开对话；「Enviar por correo」会把这封摘要拼成邮件发到 <b>hello@go.joggerprint.com</b>。<br>No guardamos nada en esta página.</p>
       </form>
     </div>
   </div>
@@ -559,11 +566,13 @@ window.SY = {
 <footer>
   <p><strong>Ningbo Shengye Packaging Co., Ltd.</strong><br>
   Exhibidores de cartón y PVC · Packaging personalizado<br>
-  Ningbo, Zhejiang, China · WhatsApp: <a href="#" data-lh>+44 7593 945185</a></p>
+  Ningbo, Zhejiang, China<br>
+  WhatsApp: <a href="#" data-lh>+44 7593 945185</a> · Correo: <a href="mailto:hello@go.joggerprint.com">hello@go.joggerprint.com</a></p>
   <p class="priv">
     <b>Privacidad:</b> esta página no tiene formularios que envíen tus datos a un servidor ni usa cookies de publicidad.
     Solo registramos una cookie técnica anónima para saber de qué anuncio llegaste, así te atendemos mejor.
-    Cuando nos escribes por WhatsApp, tus datos quedan únicamente en esa conversación.
+    Si nos escribes por WhatsApp, tus datos quedan en esa conversación; si nos escribes por correo a
+    hello@go.joggerprint.com, quedan en nuestra bandeja de entrada. No compartimos esa información con terceros.
   </p>
   <p class="legal">© <span id="yy">2026</span> Ningbo Shengye Packaging Co., Ltd. · Contenido actualizado el <span id="upd">—</span></p>
 </footer>
@@ -688,11 +697,31 @@ window.SY = {
         "• Detalles: " + (g("f-note") || "—")
       ].join("\n");
 
+      /* ★ 2026-10-02：两条出口**共用**上面这份校验与摘要 ——
+         复制一份拼邮件的话，将来改字段就会只改一处（本项目已经因为"两处各写一遍"踩过好几次）。 */
+      if (FORM.__wantMail) {
+        FORM.__wantMail = false;
+        var subj = "Consulta de exhibidores — " + (g("f-company") || g("f-name"));
+        window.location.href = "mailto:hello@go.joggerprint.com"
+          + "?subject=" + encodeURIComponent(subj)
+          + "&body=" + encodeURIComponent(msg);
+        return;
+      }
       var num = (window.SY && window.SY.wa) || "447593945185";
       var url = window.lhWa ? window.lhWa(num, msg, "es")
                             : "https://wa.me/" + num + "?text=" + encodeURIComponent(msg);
       window.open(url, "_blank", "noopener");
     });
+
+    /* 邮件按钮：**复用**同一个 submit 处理器，只打个标记 —— 校验与摘要只有一份实现 */
+    var MAILBTN = $("qf-mail");
+    if (MAILBTN) {
+      MAILBTN.addEventListener("click", function(){
+        FORM.__wantMail = true;
+        if (typeof FORM.requestSubmit === "function") FORM.requestSubmit();
+        else FORM.dispatchEvent(new Event("submit", { cancelable: true }));
+      });
+    }
   }
 })();
 </script>
