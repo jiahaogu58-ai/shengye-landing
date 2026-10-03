@@ -270,9 +270,14 @@ window.SY = {
 
 /* 语言切换 + 复制邮箱（2026-10-03） */
 .topbar-right{display:flex;align-items:center;gap:10px}
-.langsw{display:flex;border:1px solid rgba(255,255,255,.45);border-radius:8px;overflow:hidden}
-.langsw button{background:transparent;color:#fff;border:0;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
-.langsw button.on{background:#fff;color:#0f766e}
+/* ⚠️ 这里踩过一次：原来写的是「白底白字」，因为我**假设顶栏是深色**（像 hero）。
+   实际 .topbar 是 rgba(255,255,255,.94) —— **白色**顶栏 → 白字白边全糊了、看不见。
+   → 改成深绿系：未选中 = 灰字透明底；选中 = 深绿底白字（对比度足够）。
+   ★ 教训：写按钮样式前先确认它长在什么底色上 —— 这套样式与 .hero-mail 那次是同一个毛病的镜像。 */
+.langsw{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.langsw button{background:transparent;color:var(--sub);border:0;padding:4px 11px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
+.langsw button:hover{background:rgba(15,118,110,.09);color:#0f766e}
+.langsw button.on{background:#0f766e;color:#fff}
 /* 邮件行：深绿 hero 上必须用浅色，否则灰字/深绿字会糊在背景里（原来的 bug）。 */
 .hero-mail a{color:#fff;font-weight:600}
 </style>
