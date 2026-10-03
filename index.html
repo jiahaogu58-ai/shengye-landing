@@ -91,7 +91,10 @@ window.SY = {
   .hero h1{font-size:26px;font-weight:800;line-height:1.25;margin-bottom:14px;letter-spacing:-.4px}
   .hero h1 em{font-style:normal;color:#a7f3e6}
   .hero .lead{font-size:14.5px;color:rgba(255,255,255,.9);max-width:530px;margin:0 auto 24px}
-  .hero-cta{display:flex;flex-direction:column;gap:10px;max-width:320px;margin:0 auto}
+  .hero-cta{display:flex;flex-direction:column;gap:10px;max-width:400px;margin:0 auto}
+  /* 按钮 + 二维码并排：两个都是"现在联系"的入口，放一起才顺手 */
+  .cta-row{display:flex;align-items:center;gap:10px;justify-content:center}
+  .cta-row .btn-primary{flex:0 1 auto}
   /* 邮件入口（2026-10-02 加）：收件已统一到企业邮箱，给走采购流程、只认邮件的买家一条路 */
   /* ⚠️ 原来这里是 color:var(--sub)（灰）+ a{color:#0f766e}（深绿），
      但 .hero 是**深绿渐变**背景 —— 灰字和深绿字都糊在背景上，等于看不见。
@@ -204,15 +207,13 @@ window.SY = {
   .formnote{font-size:11px;color:var(--sub);margin-top:10px;text-align:center;line-height:1.5}
 
   /* ---------- 首屏横幅的二维码（2026-10-03）---------- */
-  /* 紧凑版：一张小图 + 一个 WhatsApp 字样，横向并排。
-     原来 96px 图配两行文案（210px 宽）占满一整条，太长太丑 ——
-     多数人只瞄一眼就扫，不需要解释文字。 */
-  .hero-qr{display:inline-flex;align-items:center;gap:9px;margin:14px auto 0;padding:6px 10px 6px 6px;
-           background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.45);
-           border-radius:11px;text-decoration:none;line-height:1}
-  .hero-qr img{width:56px;height:56px;display:block;border-radius:7px;background:#fff;flex-shrink:0}
-  .hero-qr b{font-size:12.5px;font-weight:800;color:#fff;letter-spacing:.3px}
-  .hero-qr:hover{background:rgba(255,255,255,.24)}
+  /* 二维码：并排之后只留一张图 —— 旁边那个按钮已经写着 WhatsApp，
+     再配文字是重复，而且会让这一行变宽（用户反馈过"太长太丑"）。 */
+  .hero-qr{display:inline-flex;align-items:center;justify-content:center;
+           padding:5px;background:#fff;border-radius:12px;text-decoration:none;flex-shrink:0;
+           box-shadow:0 2px 8px rgba(0,0,0,.16);transition:transform .15s}
+  .hero-qr img{width:52px;height:52px;display:block;border-radius:7px}
+  .hero-qr:hover{transform:scale(1.05)}
   /* 手机访客：点按钮一秒就开，二维码是多余的 → 隐藏 */
   @media(max-width:560px){.hero-qr{display:none}}
 
@@ -296,7 +297,17 @@ window.SY = {
   <h1><span data-i18n="hero.h1a">Exhibidores de</span> <em data-i18n="hero.h1a2">cartón y PVC</em><br><span data-i18n="hero.h1b">fabricados a tu medida</span></h1>
   <p class="lead">Diseñamos, imprimimos y producimos en nuestra propia planta. Precios directos de fábrica, empaque plano para bajar el costo del flete.</p>
   <div class="hero-cta">
-    <a href="#" data-lh class="btn-primary"><span data-i18n="hero.wa">Hablar por WhatsApp</span> <span aria-hidden="true">→</span></a>
+    <!-- 2026-10-03：二维码移到「Chat on WhatsApp」旁边（用户要求）——
+         原来它单独占一行，视觉上把首屏拉长了。并排之后既紧凑，
+         又让"扫码"和"点按钮"这两个同义动作挨在一起，不用来回找。 -->
+    <div class="cta-row">
+      <a href="#" data-lh class="btn-primary"><span data-i18n="hero.wa">Hablar por WhatsApp</span> <span aria-hidden="true">→</span></a>
+      <a class="hero-qr" id="hero-qr" href="#" data-lh
+         data-wa-text="Hola, vi su página y quiero información sobre exhibidores personalizados."
+         title="WhatsApp" aria-label="WhatsApp">
+        <img src="landing_assets/whatsapp-qr.png" alt="QR de WhatsApp" width="56" height="56" loading="lazy" decoding="async">
+      </a>
+    </div>
     <a href="#cotizar" class="btn-ghost" data-i18n="hero.quote">Solicitar cotización</a>
   </div>
   <!-- ★ 2026-10-02 加邮件入口：我们收件已统一到企业邮箱；西语区不少买家走采购流程时只认邮件 -->
@@ -305,17 +316,6 @@ window.SY = {
     <a href="mailto:hello@joggerprint.com?subject=Consulta%20desde%20la%20web%20-%20Ningbo%20Shengye">hello@joggerprint.com</a>
   </p>
 
-  <!-- ★ 2026-10-03：把二维码提到**首屏横幅**（用户要求「第一个横幅那边就加上」）。
-       原来只在页面中后段（@538）有 —— 但访客多数在上半屏就决定走不走，
-       放到下面等于没有。桌面访客（同事转发、投流落地、展会物料）扫一下就能
-       转到手机继续聊；手机上则隐藏（那时点按钮更快，给二维码是多余的）。
-       二维码图复用已有的 landing_assets/whatsapp-qr.png，不重复生成。 -->
-  <a class="hero-qr" id="hero-qr" href="#" data-lh
-     data-wa-text="Hola, vi su página y quiero información sobre exhibidores personalizados."
-     title="WhatsApp">
-    <img src="landing_assets/whatsapp-qr.png" alt="QR de WhatsApp" width="56" height="56" loading="lazy" decoding="async">
-    <b>WhatsApp</b>
-  </a>
 </div>
 
 <!-- ══════════ B2B 关键信息条 ══════════ -->
