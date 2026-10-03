@@ -93,8 +93,11 @@ window.SY = {
   .hero .lead{font-size:14.5px;color:rgba(255,255,255,.9);max-width:530px;margin:0 auto 24px}
   .hero-cta{display:flex;flex-direction:column;gap:10px;max-width:320px;margin:0 auto}
   /* 邮件入口（2026-10-02 加）：收件已统一到企业邮箱，给走采购流程、只认邮件的买家一条路 */
-  .hero-mail{margin:12px auto 0;max-width:340px;font-size:13px;line-height:1.55;color:var(--sub);text-align:center}
-  .hero-mail a{color:#0f766e;text-decoration:underline;word-break:break-all}
+  /* ⚠️ 原来这里是 color:var(--sub)（灰）+ a{color:#0f766e}（深绿），
+     但 .hero 是**深绿渐变**背景 —— 灰字和深绿字都糊在背景上，等于看不见。
+     这段样式是按浅色底写的，被搬进了深色 hero。→ 改成浅色系。 */
+  .hero-mail{margin:14px auto 0;max-width:420px;font-size:13px;line-height:1.6;color:#cdeae4;text-align:center}
+  .hero-mail a{color:#fff;text-decoration:underline;text-underline-offset:2px;word-break:break-all;font-weight:600}
   .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;
     background:#fff;color:var(--brand-dark);padding:14px 24px;border-radius:11px;
     font-weight:800;font-size:15.5px;text-decoration:none;box-shadow:0 6px 20px -6px rgba(0,0,0,.4)}
@@ -201,12 +204,15 @@ window.SY = {
   .formnote{font-size:11px;color:var(--sub);margin-top:10px;text-align:center;line-height:1.5}
 
   /* ---------- 首屏横幅的二维码（2026-10-03）---------- */
-  .hero-qr{display:inline-flex;align-items:center;gap:12px;margin:16px auto 0;padding:10px 14px;
-           background:var(--card);border:1px solid var(--line);border-radius:14px;text-align:left;
-           box-shadow:var(--shadow)}
-  .hero-qr img{width:96px;height:96px;display:block;border-radius:8px;background:#fff;flex-shrink:0}
-  .hero-qr b{display:block;font-size:13.5px;font-weight:800;margin-bottom:3px}
-  .hero-qr span{display:block;font-size:12.3px;color:var(--sub);line-height:1.5;max-width:210px}
+  /* 紧凑版：一张小图 + 一个 WhatsApp 字样，横向并排。
+     原来 96px 图配两行文案（210px 宽）占满一整条，太长太丑 ——
+     多数人只瞄一眼就扫，不需要解释文字。 */
+  .hero-qr{display:inline-flex;align-items:center;gap:9px;margin:14px auto 0;padding:6px 10px 6px 6px;
+           background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.45);
+           border-radius:11px;text-decoration:none;line-height:1}
+  .hero-qr img{width:56px;height:56px;display:block;border-radius:7px;background:#fff;flex-shrink:0}
+  .hero-qr b{font-size:12.5px;font-weight:800;color:#fff;letter-spacing:.3px}
+  .hero-qr:hover{background:rgba(255,255,255,.24)}
   /* 手机访客：点按钮一秒就开，二维码是多余的 → 隐藏 */
   @media(max-width:560px){.hero-qr{display:none}}
 
@@ -266,12 +272,8 @@ window.SY = {
 .langsw{display:flex;border:1px solid rgba(255,255,255,.45);border-radius:8px;overflow:hidden}
 .langsw button{background:transparent;color:#fff;border:0;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 .langsw button.on{background:#fff;color:#0f766e}
-.mailbtn{background:transparent;border:1px dashed currentColor;border-radius:8px;padding:3px 9px;
-  font:inherit;font-size:.95em;cursor:pointer;color:inherit}
-.mailbtn code{font-size:.95em}
-.mailbtn:hover{background:rgba(15,118,110,.07)}
-.mailstate{margin-left:8px;font-weight:600;font-size:.92em}
-.maillink{margin-left:10px;font-size:.92em;opacity:.85}
+/* 邮件行：深绿 hero 上必须用浅色，否则灰字/深绿字会糊在背景里（原来的 bug）。 */
+.hero-mail a{color:#fff;font-weight:600}
 </style>
 </head>
 <body>
@@ -298,16 +300,9 @@ window.SY = {
     <a href="#cotizar" class="btn-ghost" data-i18n="hero.quote">Solicitar cotización</a>
   </div>
   <!-- ★ 2026-10-02 加邮件入口：我们收件已统一到企业邮箱；西语区不少买家走采购流程时只认邮件 -->
+  <!-- 2026-10-03：去掉复制按钮（用户要求）—— 首屏只留一行邮件地址，够用且不占地方 -->
   <p class="hero-mail">📧 <span data-i18n="hero.mailQ">¿Prefieres correo?</span>
-    <!-- ★ 2026-10-03：原来这里是个 mailto: 链接 → 在**没配默认邮件客户端**的机器上
-         点击是**静默无反应**的（浏览器不报错、也不弹选择框）。
-         这就是「点邮箱按钮没反应」的真因 —— 不是事件没绑上，
-         而是 mailto 这个协议在本机没有处理程序。→ 改成复制，任何机器都有明确反馈。 -->
-    <button type="button" class="mailbtn" id="hero-copy-mail" data-mail="hello@joggerprint.com">
-      <span data-i18n="hero.copy">Copiar</span> <code>hello@joggerprint.com</code>
-    </button>
-    <span class="mailstate" id="hero-mail-state" role="status" aria-live="polite"></span>
-    <a href="mailto:hello@joggerprint.com?subject=Consulta%20desde%20la%20web%20-%20Ningbo%20Shengye" class="maillink" data-i18n="hero.openMail">abrir correo</a>
+    <a href="mailto:hello@joggerprint.com?subject=Consulta%20desde%20la%20web%20-%20Ningbo%20Shengye">hello@joggerprint.com</a>
   </p>
 
   <!-- ★ 2026-10-03：把二维码提到**首屏横幅**（用户要求「第一个横幅那边就加上」）。
@@ -315,13 +310,12 @@ window.SY = {
        放到下面等于没有。桌面访客（同事转发、投流落地、展会物料）扫一下就能
        转到手机继续聊；手机上则隐藏（那时点按钮更快，给二维码是多余的）。
        二维码图复用已有的 landing_assets/whatsapp-qr.png，不重复生成。 -->
-  <div class="hero-qr" id="hero-qr">
-    <img src="landing_assets/whatsapp-qr.png" alt="Código QR de WhatsApp" width="96" height="96" loading="lazy" decoding="async">
-    <div>
-      <b data-i18n="hero.qrT">¿Estás en computadora?</b>
-      <span data-i18n="hero.qrS">Escanea con la cámara del teléfono y seguimos por WhatsApp.</span>
-    </div>
-  </div>
+  <a class="hero-qr" id="hero-qr" href="#" data-lh
+     data-wa-text="Hola, vi su página y quiero información sobre exhibidores personalizados."
+     title="WhatsApp">
+    <img src="landing_assets/whatsapp-qr.png" alt="QR de WhatsApp" width="56" height="56" loading="lazy" decoding="async">
+    <b>WhatsApp</b>
+  </a>
 </div>
 
 <!-- ══════════ B2B 关键信息条 ══════════ -->
@@ -870,45 +864,8 @@ function applyI18n() {
   });
 }
 
-/* 复制邮箱：clipboard API → execCommand 兜底 → 都失败就亮出地址（不静默） */
-function copyMail(btnEl) {
-  var addr = (btnEl && btnEl.getAttribute('data-mail')) || 'hello@joggerprint.com';
-  var st = document.getElementById('hero-mail-state');
-  var d = I18N[curLang] || {};
-  function ok() { if (st) { st.textContent = d['copied'] || 'Email copied!'; st.style.color = '#0f766e'; } setTimeout(function(){ if (st) st.textContent=''; }, 3500); }
-  function fail() { if (st) { st.textContent = d['copyfail'] || ('Could not copy — please write: ' + addr); st.style.color = '#dc2626'; } }
-  function legacy() {
-    try {
-      var ta = document.createElement('textarea');
-      ta.value = addr; ta.setAttribute('readonly','');
-      ta.style.position='fixed'; ta.style.opacity='0';
-      document.body.appendChild(ta); ta.select();
-      var done = document.execCommand('copy');
-      document.body.removeChild(ta);
-      done ? ok() : fail();
-    } catch (e) { fail(); }
-  }
-  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(addr).then(ok, legacy);
-  else legacy();
-}
 
 document.addEventListener('DOMContentLoaded', function () {
-  var c = document.getElementById('hero-copy-mail');
-  if (c) c.addEventListener('click', function () { copyMail(c); });
-  /* #qf-mail 的降级提示：mailto 打不开时别让用户以为按钮坏了 ——
-     引导他去用旁边的复制入口（那一个任何机器都能用）。 */
-  var mb = document.getElementById('qf-mail');
-  if (mb) mb.addEventListener('click', function () {
-    setTimeout(function () {
-      var st2 = document.getElementById('hero-mail-state');
-      if (st2 && !st2.textContent) {
-        st2.textContent = (curLang === 'en')
-          ? 'Mail app not opening? Use the Copy button above.'
-          : '¿No se abre su correo? Use el botón Copiar de arriba.';
-        st2.style.color = '#b45309';
-      }
-    }, 700);
-  });
   applyI18n();
   setLang(curLang);   // 首屏就按探测到的语言渲染
 });
