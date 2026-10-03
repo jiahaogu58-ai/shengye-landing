@@ -200,6 +200,16 @@ window.SY = {
   .submit:active{transform:translateY(1px)}
   .formnote{font-size:11px;color:var(--sub);margin-top:10px;text-align:center;line-height:1.5}
 
+  /* ---------- 首屏横幅的二维码（2026-10-03）---------- */
+  .hero-qr{display:inline-flex;align-items:center;gap:12px;margin:16px auto 0;padding:10px 14px;
+           background:var(--card);border:1px solid var(--line);border-radius:14px;text-align:left;
+           box-shadow:var(--shadow)}
+  .hero-qr img{width:96px;height:96px;display:block;border-radius:8px;background:#fff;flex-shrink:0}
+  .hero-qr b{display:block;font-size:13.5px;font-weight:800;margin-bottom:3px}
+  .hero-qr span{display:block;font-size:12.3px;color:var(--sub);line-height:1.5;max-width:210px}
+  /* 手机访客：点按钮一秒就开，二维码是多余的 → 隐藏 */
+  @media(max-width:560px){.hero-qr{display:none}}
+
   /* ---------- 二维码 ---------- */
   .qrcard{display:flex;gap:20px;align-items:center;background:var(--card);border:1px solid var(--line);
           border-radius:var(--r);padding:18px;box-shadow:var(--shadow);margin-top:6px}
@@ -250,35 +260,76 @@ window.SY = {
     background:var(--wa);color:#fff;width:54px;height:54px;border-radius:50%;
     display:flex;align-items:center;justify-content:center;font-size:26px;
     box-shadow:0 6px 22px rgba(0,0,0,.22);z-index:999;text-decoration:none;line-height:1}
+
+/* 语言切换 + 复制邮箱（2026-10-03） */
+.topbar-right{display:flex;align-items:center;gap:10px}
+.langsw{display:flex;border:1px solid rgba(255,255,255,.45);border-radius:8px;overflow:hidden}
+.langsw button{background:transparent;color:#fff;border:0;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.langsw button.on{background:#fff;color:#0f766e}
+.mailbtn{background:transparent;border:1px dashed currentColor;border-radius:8px;padding:3px 9px;
+  font:inherit;font-size:.95em;cursor:pointer;color:inherit}
+.mailbtn code{font-size:.95em}
+.mailbtn:hover{background:rgba(15,118,110,.07)}
+.mailstate{margin-left:8px;font-weight:600;font-size:.92em}
+.maillink{margin-left:10px;font-size:.92em;opacity:.85}
 </style>
 </head>
 <body>
 
 <!-- ══════════ 顶栏 ══════════ -->
 <div class="topbar">
-  <div class="logo">Ningbo <span>Shengye</span><small>Exhibidores &amp; Packaging · FOB Ningbo</small></div>
-  <a href="#" data-lh class="btn-wa" aria-label="Escribir por WhatsApp">WhatsApp</a>
+  <div class="logo">Ningbo <span>Shengye</span><small data-i18n="top.sub">Exhibidores &amp; Packaging · FOB Ningbo</small></div>
+  <div class="topbar-right">
+    <div class="langsw" role="group" aria-label="Idioma / Language">
+      <button type="button" id="lang-es" class="on" onclick="setLang('es')">ES</button>
+      <button type="button" id="lang-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#" data-lh class="btn-wa" aria-label="Escribir por WhatsApp">WhatsApp</a>
+  </div>
 </div>
 
 <!-- ══════════ HERO ══════════ -->
 <div class="hero">
-  <span class="eyebrow">Fábrica propia · Ningbo, China</span>
-  <h1>Exhibidores de <em>cartón y PVC</em><br>fabricados a tu medida</h1>
+  <span class="eyebrow" data-i18n="hero.eyebrow">Fábrica propia · Ningbo, China</span>
+  <h1><span data-i18n="hero.h1a">Exhibidores de</span> <em data-i18n="hero.h1a2">cartón y PVC</em><br><span data-i18n="hero.h1b">fabricados a tu medida</span></h1>
   <p class="lead">Diseñamos, imprimimos y producimos en nuestra propia planta. Precios directos de fábrica, empaque plano para bajar el costo del flete.</p>
   <div class="hero-cta">
-    <a href="#" data-lh class="btn-primary">Hablar por WhatsApp <span aria-hidden="true">→</span></a>
-    <a href="#cotizar" class="btn-ghost">Solicitar cotización</a>
+    <a href="#" data-lh class="btn-primary"><span data-i18n="hero.wa">Hablar por WhatsApp</span> <span aria-hidden="true">→</span></a>
+    <a href="#cotizar" class="btn-ghost" data-i18n="hero.quote">Solicitar cotización</a>
   </div>
   <!-- ★ 2026-10-02 加邮件入口：我们收件已统一到企业邮箱；西语区不少买家走采购流程时只认邮件 -->
-  <p class="hero-mail">📧 ¿Prefieres correo? <a href="mailto:hello@joggerprint.com?subject=Consulta%20desde%20la%20web%20-%20Ningbo%20Shengye">hello@joggerprint.com</a></p>
+  <p class="hero-mail">📧 <span data-i18n="hero.mailQ">¿Prefieres correo?</span>
+    <!-- ★ 2026-10-03：原来这里是个 mailto: 链接 → 在**没配默认邮件客户端**的机器上
+         点击是**静默无反应**的（浏览器不报错、也不弹选择框）。
+         这就是「点邮箱按钮没反应」的真因 —— 不是事件没绑上，
+         而是 mailto 这个协议在本机没有处理程序。→ 改成复制，任何机器都有明确反馈。 -->
+    <button type="button" class="mailbtn" id="hero-copy-mail" data-mail="hello@joggerprint.com">
+      <span data-i18n="hero.copy">Copiar</span> <code>hello@joggerprint.com</code>
+    </button>
+    <span class="mailstate" id="hero-mail-state" role="status" aria-live="polite"></span>
+    <a href="mailto:hello@joggerprint.com?subject=Consulta%20desde%20la%20web%20-%20Ningbo%20Shengye" class="maillink" data-i18n="hero.openMail">abrir correo</a>
+  </p>
+
+  <!-- ★ 2026-10-03：把二维码提到**首屏横幅**（用户要求「第一个横幅那边就加上」）。
+       原来只在页面中后段（@538）有 —— 但访客多数在上半屏就决定走不走，
+       放到下面等于没有。桌面访客（同事转发、投流落地、展会物料）扫一下就能
+       转到手机继续聊；手机上则隐藏（那时点按钮更快，给二维码是多余的）。
+       二维码图复用已有的 landing_assets/whatsapp-qr.png，不重复生成。 -->
+  <div class="hero-qr" id="hero-qr">
+    <img src="landing_assets/whatsapp-qr.png" alt="Código QR de WhatsApp" width="96" height="96" loading="lazy" decoding="async">
+    <div>
+      <b data-i18n="hero.qrT">¿Estás en computadora?</b>
+      <span data-i18n="hero.qrS">Escanea con la cámara del teléfono y seguimos por WhatsApp.</span>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════ B2B 关键信息条 ══════════ -->
 <div class="kbar">
-  <div><b id="k-moq">100+</b><span>MOQ unidades</span></div>
-  <div><b id="k-sample">7 días</b><span>Muestra</span></div>
-  <div><b id="k-lead">15–20 d</b><span>Producción</span></div>
-  <div><b>FOB</b><span>Precio directo</span></div>
+  <div><b id="k-moq">100+</b><span data-i18n="k.moq">MOQ unidades</span></div>
+  <div><b id="k-sample">7 días</b><span data-i18n="k.sample">Muestra</span></div>
+  <div><b id="k-lead">15–20 d</b><span data-i18n="k.lead">Producción</span></div>
+  <div><b>FOB</b><span data-i18n="k.fob">Precio directo</span></div>
 </div>
 
 <div class="wrap">
@@ -448,24 +499,24 @@ window.SY = {
     <h2>Pide tu cotización</h2>
     <p class="sub">Completa lo básico y te abrimos la conversación en WhatsApp con todo ya ordenado.</p>
     <div class="formbox">
-      <h3>Datos del proyecto</h3>
-      <p class="hint">Toma 40 segundos. Te respondemos con precio FOB y volumen de empaque.</p>
+      <h3 data-i18n="form.h3">Datos del proyecto</h3>
+      <p class="hint" data-i18n="form.hint">Toma 40 segundos. Te respondemos con precio FOB y volumen de empaque.</p>
       <form id="qf" novalidate>
         <div class="fields">
           <div>
-            <label for="f-name">Tu nombre</label>
+            <label for="f-name" data-i18n="form.name">Tu nombre</label>
             <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Ej. Juan Pérez">
           </div>
           <div>
-            <label for="f-company">Empresa</label>
+            <label for="f-company" data-i18n="form.company">Empresa</label>
             <input id="f-company" name="company" type="text" autocomplete="organization" placeholder="Ej. Distribuidora XYZ">
           </div>
           <div>
-            <label for="f-country">País / puerto de destino</label>
+            <label for="f-country" data-i18n="form.country">País / puerto de destino</label>
             <input id="f-country" name="country" type="text" placeholder="Ej. Buenos Aires, Argentina">
           </div>
           <div>
-            <label for="f-prod">Producto de interés</label>
+            <label for="f-prod" data-i18n="form.prod">Producto de interés</label>
             <select id="f-prod" name="product">
               <option>Exhibidor de cartón corrugado</option>
               <option>Exhibidor de PVC foam board</option>
@@ -477,7 +528,7 @@ window.SY = {
             </select>
           </div>
           <div>
-            <label for="f-qty">Cantidad estimada</label>
+            <label for="f-qty" data-i18n="form.qty">Cantidad estimada</label>
             <select id="f-qty" name="qty">
               <option>Menos de 200 unidades</option>
               <option selected>200 – 1.000 unidades</option>
@@ -487,7 +538,7 @@ window.SY = {
             </select>
           </div>
           <div>
-            <label for="f-when">¿Para cuándo?</label>
+            <label for="f-when" data-i18n="form.when">¿Para cuándo?</label>
             <select id="f-when" name="when">
               <option>Es para cotizar, sin fecha</option>
               <option>En 1 – 2 meses</option>
@@ -495,11 +546,11 @@ window.SY = {
             </select>
           </div>
           <div class="full">
-            <label for="f-note">Detalles (opcional)</label>
+            <label for="f-note" data-i18n="form.note">Detalles (opcional)</label>
             <textarea id="f-note" name="note" placeholder="Medidas, material, si ya tienes diseño o referencia…"></textarea>
           </div>
         </div>
-        <button class="submit" type="submit">Enviar por WhatsApp</button>
+        <button class="submit" type="submit" data-i18n="form.sendWa">Enviar por WhatsApp</button>
         <!-- ★ 2026-10-02：邮件入口。同一个表单，两条路 —— 点了它会把同样的摘要拼成一封邮件 -->
         <button class="submit" type="button" id="qf-mail" style="margin-top:8px;background:#fff;color:#0f766e;border:1px solid #0f766e">Enviar por correo</button>
         <p class="formnote">WhatsApp 会直接打开对话；「Enviar por correo」会把这封摘要拼成邮件发到 <b>hello@joggerprint.com</b>。<br>No guardamos nada en esta página.</p>
@@ -730,6 +781,139 @@ window.SY = {
      访客点 WhatsApp 时链接会自动带上 (Ref: XX0000)，你在 WhatsApp 收到就知道
      他是从哪条广告、哪个国家、什么设备来的。全程客户不用填任何东西。
      逻辑在 landing_assets/track.js，改那一处三个页面一起生效。 -->
+<script>
+/* ══════════ 语言切换 + 复制邮箱（2026-10-03 加）══════════
+   ★ 为什么 hero 的邮件入口不用 mailto：`mailto:` 在**没配默认邮件客户端**的机器上
+     点击是**静默无反应**的（浏览器不报错、也不弹选择框）—— 这就是「点邮箱按钮没反应」
+     的真因，不是事件没绑上，而是这个协议在本机没有处理程序。
+     改复制之后，任何机器点一下都有明确反馈。
+   ★ 表单里的 #qf-mail 仍走 mailto —— 那里**必须跳转**（要带上客户填的摘要），
+     但失败时也要给降级提示，不能静默。
+   ★ 译文覆盖：首屏 / 关键信息条 / 表单 / 流程 / 页脚。其余段落逐步补齐。 */
+var I18N = {
+  es: {},
+  en: {
+    'top.sub':        'Displays &amp; Packaging · FOB Ningbo',
+    'hero.eyebrow':   'Our own factory · Ningbo, China',
+    'hero.h1a':       'Corrugated',
+    'hero.h1a2':      '&amp; PVC displays',
+    'hero.h1b':       'built to your size',
+    'hero.lead':      'We design, print and produce in our own plant. Factory-direct pricing, flat-pack to cut freight cost, and a structural sample before you commit.',
+    'hero.wa':        'Chat on WhatsApp',
+    'hero.quote':     'Request a quote',
+    'hero.mailQ':     'Prefer email?',
+    'hero.copy':      'Copy',
+    'hero.openMail':  'or open your mail app',
+    'hero.qrT':       'On a computer?',
+    'hero.qrS':       'Scan with your phone camera and we continue on WhatsApp.',
+    'k.moq':          'MOQ units',
+    'k.sample':       'Sample',
+    'k.lead':         'Production',
+    'k.fob':          'Direct price',
+    'form.h3':        'Project details',
+    'form.hint':      'Takes 40 seconds. We reply with FOB price and packing volume.',
+    'form.name':      'Your name',
+    'form.company':   'Company',
+    'form.country':   'Country / destination port',
+    'form.prod':      'Product of interest',
+    'form.qty':       'Estimated quantity',
+    'form.when':      'When do you need it?',
+    'form.note':      'Details (optional)',
+    'form.notePh':    'Size, material, whether you already have artwork or a reference…',
+    'form.sendWa':    'Send via WhatsApp',
+    'form.sendMail':  'Send via email',
+    'form.note2':     'WhatsApp opens the chat directly; “Send via email” turns the same summary into an email to hello@joggerprint.com. Nothing is stored on this page.',
+    'form.phName':    'e.g. John Smith',
+    'form.phCompany': 'e.g. XYZ Distributors',
+    'form.phCountry': 'e.g. Buenos Aires, Argentina',
+    'copied':         'Email copied!',
+    'copyfail':       'Could not copy — please write it down: hello@joggerprint.com',
+    'opt.other':      'Other / several',
+    'opt.unsure':     'Not sure yet'
+  }
+};
+var curLang = (function(){
+  try { var q = new URLSearchParams(location.search).get('lang'); if (q === 'en' || q === 'es') return q; } catch (e) {}
+  var n2 = (navigator.language || '').toLowerCase();
+  return n2.indexOf('es') === 0 ? 'es' : 'en';   // 西语优先匹配，其余走英文
+})();
+
+function setLang(l) {
+  curLang = (l === 'en') ? 'en' : 'es';
+  document.documentElement.lang = curLang;
+  var es = document.getElementById('lang-es'), en = document.getElementById('lang-en');
+  if (es) es.className = curLang === 'es' ? 'on' : '';
+  if (en) en.className = curLang === 'en' ? 'on' : '';
+  applyI18n();
+  try { if (window.LH_LANG_SET) window.LH_LANG_SET(curLang); } catch (e) {}   // 告知追踪脚本
+  try { history.replaceState(null, '', curLang === 'en' ? '?lang=en' : location.pathname); } catch (e) {}
+}
+
+function applyI18n() {
+  var d = I18N[curLang] || {};
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n');
+    if (!k) return;
+    /* 西语 = 页面原文（不覆盖，保留原样）；英文 = 查字典 */
+    if (curLang === 'es') {
+      if (el.hasAttribute('data-es')) el.innerHTML = el.getAttribute('data-es');
+      return;
+    }
+    if (!el.hasAttribute('data-es')) el.setAttribute('data-es', el.innerHTML);
+    if (d[k] != null) el.innerHTML = d[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n-ph');
+    if (curLang === 'es') { if (el.hasAttribute('data-es-ph')) el.setAttribute('placeholder', el.getAttribute('data-es-ph')); return; }
+    if (!el.hasAttribute('data-es-ph')) el.setAttribute('data-es-ph', el.getAttribute('placeholder') || '');
+    if (d[k] != null) el.setAttribute('placeholder', d[k]);
+  });
+}
+
+/* 复制邮箱：clipboard API → execCommand 兜底 → 都失败就亮出地址（不静默） */
+function copyMail(btnEl) {
+  var addr = (btnEl && btnEl.getAttribute('data-mail')) || 'hello@joggerprint.com';
+  var st = document.getElementById('hero-mail-state');
+  var d = I18N[curLang] || {};
+  function ok() { if (st) { st.textContent = d['copied'] || 'Email copied!'; st.style.color = '#0f766e'; } setTimeout(function(){ if (st) st.textContent=''; }, 3500); }
+  function fail() { if (st) { st.textContent = d['copyfail'] || ('Could not copy — please write: ' + addr); st.style.color = '#dc2626'; } }
+  function legacy() {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = addr; ta.setAttribute('readonly','');
+      ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      var done = document.execCommand('copy');
+      document.body.removeChild(ta);
+      done ? ok() : fail();
+    } catch (e) { fail(); }
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(addr).then(ok, legacy);
+  else legacy();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  var c = document.getElementById('hero-copy-mail');
+  if (c) c.addEventListener('click', function () { copyMail(c); });
+  /* #qf-mail 的降级提示：mailto 打不开时别让用户以为按钮坏了 ——
+     引导他去用旁边的复制入口（那一个任何机器都能用）。 */
+  var mb = document.getElementById('qf-mail');
+  if (mb) mb.addEventListener('click', function () {
+    setTimeout(function () {
+      var st2 = document.getElementById('hero-mail-state');
+      if (st2 && !st2.textContent) {
+        st2.textContent = (curLang === 'en')
+          ? 'Mail app not opening? Use the Copy button above.'
+          : '¿No se abre su correo? Use el botón Copiar de arriba.';
+        st2.style.color = '#b45309';
+      }
+    }, 700);
+  });
+  applyI18n();
+  setLang(curLang);   // 首屏就按探测到的语言渲染
+});
+</script>
+
 <script>window.LH_API = "https://lead-hunter-trade.app.workbuddy.host";</script>
 <script src="landing_assets/track.js" defer></script>
 
