@@ -223,6 +223,41 @@
   </section>
 
   <section>
+    <h2 data-i18n="q.h">Tres preguntas para saber qué nivel necesitas</h2>
+    <p class="sub" data-i18n="q.sub">No empieces por el modelo. Empieza por tu volumen: el nivel correcto te ahorra pagar capacidad que no vas a llenar.</p>
+    <div class="grid2" style="margin-top:14px">
+      <div class="card">
+        <b data-i18n="q.1t">① ¿Cuántas hojas A4 a color al mes?</b>
+        <ul class="ticks" style="margin-top:8px">
+          <li data-i18n="q.1a">Menos de 50.000 → niveles 04 / 05</li>
+          <li data-i18n="q.1b">50.000 – 150.000 → niveles 02 / 03</li>
+          <li data-i18n="q.1c">Más de 150.000 → nivel 01</li>
+        </ul>
+      </div>
+      <div class="card">
+        <b data-i18n="q.2t">② ¿Necesitas hojas largas o banners?</b>
+        <ul class="ticks" style="margin-top:8px">
+          <li data-i18n="q.2a">Sí → nivel 02（C7100 / C7090）</li>
+          <li data-i18n="q.2b">No → sigue bajando en la lista — no pagues capacidad que no vas a usar</li>
+        </ul>
+      </div>
+      <div class="card">
+        <b data-i18n="q.3t">③ ¿Es tu prensa principal o una segunda unidad?</b>
+        <ul class="ticks" style="margin-top:8px">
+          <li data-i18n="q.3a">Principal → mínimo nivel 03</li>
+          <li data-i18n="q.3b">Segunda / para picos → nivel 04 o 05</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--brand)">
+        <b data-i18n="q.4t">Un número de modelo no es una generación</b>
+        <p style="margin:8px 0 0;font-size:13.5px;color:var(--sub)" data-i18n="q.4d">Los dígitos dicen la velocidad, no la antigüedad de la plataforma. La C6100 y la C7100
+          declaran ambas 100 ppm, pero no son la misma máquina, ni del mismo año, ni del mismo catálogo de repuestos.
+          En equipo usado la pregunta nunca es «cuántas ppm» — sino <b>«qué plataforma es, y cuántas impresiones lleva»</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <div class="caveat">
       <h3 data-i18n="cav.h">La advertencia honesta</h3>
       <p data-i18n="cav.p">Una prensa reacondicionada <b>no es una prensa nueva</b>. Su vida útil restante depende del total de
@@ -261,9 +296,11 @@
       <p data-i18n="cta.p">Dinos qué produces y a qué volumen — te decimos qué unidad encaja y qué no.</p>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
         <a href="#" class="btn btn-wa" data-lh><span data-i18n="cta.wa">Escribir por WhatsApp</span> →</a>
-        <a href="#" class="btn btn-ghost" onclick="copyMail(this)" data-mail="hello@joggerprint.com"
-           data-i18n="cta.mail">Copiar correo</a>
+        <a href="printer_assets/Shangyi-Refurbished-Presses-Catalogue.pdf" download class="btn btn-ghost"
+           data-i18n="cta.pdf">Descargar catálogo (PDF, 12 pág.)</a>
       </div>
+      <p class="note" style="color:#bcd6f2;margin-top:12px;font-size:13px" data-i18n="cta.pdfNote">
+        El catálogo incluye la gama completa por niveles, la guía de selección y qué revisar en una unidad usada.</p>
     </div>
   </section>
 
@@ -331,6 +368,18 @@ const I18N = {
     "pr.4t":"Service and shipping","pr.4d":"Servicing, sea-freight packing and export documentation.",
     "cta.h":"Shall we start?","cta.p":"Tell us what you produce and at what volume — we tell you which unit fits and which does not.",
     "cta.wa":"Message us on WhatsApp","cta.mail":"Copy email",
+    "cta.pdf":"Download catalogue (PDF, 12 pages)",
+    "cta.pdfNote":"The catalogue covers the full range by tier, the selection guide, and what to check on a used unit.",
+    "q.h":"Three questions that place you in a tier",
+    "q.sub":"Do not start from the model. Start from your volume — the right tier saves you paying for capacity you will not fill.",
+    "q.1t":"① How many colour A4 sheets do you run per month?",
+    "q.1a":"Under 50k → tiers 04 / 05","q.1b":"50k – 150k → tiers 02 / 03","q.1c":"Over 150k → tier 01",
+    "q.2t":"② Do you need long sheets or banners?",
+    "q.2a":"Yes → tier 02 (C7100 / C7090)","q.2b":"No → keep going down the list — do not pay for capability you will not use",
+    "q.3t":"③ Is this your main press, or a second unit?",
+    "q.3a":"Main press → tier 03 minimum","q.3b":"Second unit / overflow → tier 04 or 05",
+    "q.4t":"A model number is not a generation",
+    "q.4d":"The digits tell you the speed, not how old the platform is. The C6100 and the C7100 are both rated 100 ppm, but they are not the same machine, the same year, or the same parts catalogue. On used equipment the question is never \"how many ppm\" — but <b>\"which platform is this, and how many impressions has it run\"</b>.",
     "ft.disc":"Pre-owned equipment. Not affiliated with the original brand owner. Specifications confirmed before order."
   }
 };
