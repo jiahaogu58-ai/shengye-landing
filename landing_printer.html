@@ -366,16 +366,40 @@ function copyMail(btn){
   const legacy = function(){ try { const t = document.createElement("textarea"); t.value = addr; t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); const d = document.execCommand("copy"); document.body.removeChild(t); d ? ok() : fail(); } catch (e) { fail(); } };
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(addr).then(ok, legacy); else legacy();
 }
-/* WhatsApp：所有 data-lh 元素带上预设开场白 —— 客户点一下就能发，不用自己组织语言 */
+/* ★ WhatsApp + 访客追踪（2026-10-04 接上）
+   原来这里是自己拼 wa.me 直链 —— 问题是**点击不会被记录**，
+   而系统的投流"转化"口径正是「落地页去重访客（按 utm_source 归因）」，
+   没有上报就等于投出去的钱看不到转化。
+   → 改用 landing_assets/track.js 提供的 window.lhWa()：
+       它负责 ① 页面访问上报 /api/track/visit ② 点击上报 Contact ③ 带上最新 utm 归因。
+     ⚠️ track.js 是三个页面**共用**的（主落地页、importer、printer），
+        改行为要改那一份，不要在这里另写一套。 */
 (function(){
-  const num = "447593945185";
-  const msg = "Hola, vi su página y me interesan las prensas de producción Konica Minolta reacondicionadas. ¿Qué unidades tienen en stock?";
-  document.querySelectorAll("[data-lh]").forEach(function(a){
-    if (a.tagName === "A") { a.href = "https://wa.me/" + num + "?text=" + encodeURIComponent(msg); a.target = "_blank"; a.rel = "noopener"; }
-  });
+  var num = "447593945185";
+  var msg = "Hola, vi su página y me interesan las prensas de producción Konica Minolta reacondicionadas. ¿Qué unidades tienen en stock?";
+  function bind(){
+    document.querySelectorAll("[data-lh]").forEach(function(a){
+      if (a.tagName !== "A") return;
+      var text = a.getAttribute("data-wa-text") || msg;
+      /* lhWa 可用就走它（带追踪）；万一 track.js 没加载成功，退回裸链接 —— 宁可少个埋点，也不能让按钮点不动 */
+      a.href = (typeof window.lhWa === "function")
+        ? window.lhWa(num, text, curLang)
+        : ("https://wa.me/" + num + "?text=" + encodeURIComponent(text));
+      a.target = "_blank"; a.rel = "noopener";
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind); else bind();
+  /* 切换语言后开场白也要跟着换 */
+  window.__bpRebindWa = bind;
 })();
 applyI18n();
 setLang(curLang);
 </script>
+<!-- ★ 访客追踪（与主落地页同一套）：LH_API 指向系统，track.js 负责
+     /api/track/visit 上报 + utm 归因 + 点击 Contact 事件。
+     少了这两行，落地页的访客就不会进 visits.json，
+     投流后台看到的转化永远是 0。 -->
+<script>window.LH_API = "https://lead-hunter-trade.app.workbuddy.host";</script>
+<script src="landing_assets/track.js" defer></script>
 </body>
 </html>
