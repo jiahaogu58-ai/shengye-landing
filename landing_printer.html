@@ -1,234 +1,396 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ningbo Shengye · Imprentas y Agencias</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shangyi Office Equipment · Prensas de producción Konica Minolta reacondicionadas</title>
+<meta name="description" content="Prensas de producción Konica Minolta AccurioPress / AccurioPrint reacondicionadas. Probadas, puestas a punto y enviadas desde China. Vídeo de funcionamiento e impresiones totales antes de comprar.">
 <style>
-  :root{--bg:#f6f7f9;--card:#fff;--ink:#1c1e21;--sub:#65676b;--line:#e4e6eb;--brand:#0f766e;--brand-dark:#0a5f59;--green:#1e9e62;--amber:#b97909;}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
-  
-  /* 顶部导航 */
-  .topbar{background:#fff;border-bottom:1px solid var(--line);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-  .logo{font-size:16px;font-weight:700;color:var(--brand)}
-  .logo span{color:var(--ink)}
-  .whatsapp-btn{display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none}
-  
-  /* Hero */
-  .hero{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:48px 16px;text-align:center}
-  .hero h1{font-size:22px;font-weight:800;margin-bottom:12px;line-height:1.3}
-  .hero p{font-size:14px;opacity:.92;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
-  .hero-cta{display:inline-block;background:#fff;color:var(--brand);padding:12px 28px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-  
-  /* 内容区 */
-  .wrap{max-width:640px;margin:0 auto;padding:0 16px 60px}
-  .section{padding:40px 0}
-  .section h2{font-size:20px;font-weight:700;margin-bottom:8px;color:var(--ink)}
-  .section p{color:var(--sub);font-size:14px;margin-bottom:20px}
-  
-  /* 优势卡片 */
-  .features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
-  @media(max-width:480px){.features{grid-template-columns:1fr}}
-  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
-  .feature-icon{font-size:24px;margin-bottom:8px}
-  .feature h3{font-size:14px;font-weight:700;margin-bottom:4px}
-  .feature p{font-size:12px;color:var(--sub);margin:0;line-height:1.5}
-  
-  /* 产品网格 */
-  .products{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
-  @media(max-width:480px){.products{grid-template-columns:1fr}}
-  .product{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-  .product-img{height:160px;background:#e8e8e8;display:flex;align-items:center;justify-content:center;color:var(--sub);font-size:11px;overflow:hidden}
-  .product-img img{width:100%;height:100%;object-fit:cover}
-  .product-info{padding:12px}
-  .product h3{font-size:13px;font-weight:700;margin-bottom:4px}
-  .product p{font-size:11px;color:var(--sub);margin:0}
-  
-  /* 流程步骤 */
-  .steps{margin-top:20px}
-  .step{display:flex;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line)}
-  .step:last-child{border-bottom:none}
-  .step-num{min-width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
-  .step-content h3{font-size:14px;font-weight:700;margin-bottom:2px}
-  .step-content p{font-size:12px;color:var(--sub);margin:0}
-  
-  /* CTA 区域 */
-  .cta-box{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border-radius:16px;padding:32px 24px;text-align:center;margin-top:40px}
-  .cta-box h2{color:#fff;font-size:20px;margin-bottom:8px}
-  .cta-box p{color:rgba(255,255,255,.85);font-size:14px;margin-bottom:20px}
-  .cta-box a{display:inline-block;background:#fff;color:var(--brand);padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none}
-  
-  /* 信任徽章 */
-  .trust{display:flex;justify-content:center;gap:24px;margin-top:24px;flex-wrap:wrap}
-  .trust-item{text-align:center;font-size:11px;color:var(--sub)}
-  .trust-item strong{display:block;font-size:18px;color:var(--brand);font-weight:700}
-  
-  /* 页脚 */
-  footer{background:#fff;border-top:1px solid var(--line);padding:24px 16px;text-align:center;font-size:12px;color:var(--sub)}
-  footer a{color:var(--brand);text-decoration:none}
-  
-  /* 悬浮 WhatsApp */
-  .float-wa{position:fixed;bottom:20px;right:20px;background:#25d366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:999;text-decoration:none}
+  :root{
+    --bg:#f5f7f8;--card:#fff;--ink:#16191c;--sub:#5f6670;--line:#e3e7ea;
+    --brand:#0f3d6b;--accent:#c8102e;--ok:#0f766e;--wa:#25d366;--r:14px;
+    --shadow:0 2px 10px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+       color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);
+          backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+  .logo{font-weight:800;font-size:15px;letter-spacing:-.2px;color:var(--brand)}
+  .logo small{display:block;font-weight:500;font-size:11px;color:var(--sub);letter-spacing:0}
+  .langsw{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+  .langsw button{background:transparent;color:var(--sub);border:0;padding:4px 11px;font:inherit;
+    font-size:12px;font-weight:700;cursor:pointer}
+  .langsw button.on{background:var(--brand);color:#fff}
+  .btn{display:inline-flex;align-items:center;gap:7px;border-radius:10px;padding:9px 15px;
+       font-weight:600;font-size:14px;text-decoration:none;border:1px solid transparent;cursor:pointer}
+  .btn-wa{background:var(--wa);color:#08331b}
+  .btn-ghost{background:#fff;color:var(--brand);border-color:var(--line)}
+
+  .hero{background:linear-gradient(150deg,#0a2c50 0%,#0f3d6b 55%,#155a9c 100%);color:#fff;padding:52px 0 46px}
+  .hero .eyebrow{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.6px;
+    text-transform:uppercase;color:#a9cdf5;border:1px solid rgba(255,255,255,.3);
+    border-radius:999px;padding:4px 12px;margin-bottom:16px}
+  .hero h1{font-size:30px;line-height:1.25;margin:0 0 14px;font-weight:800;letter-spacing:-.5px}
+  .hero h1 em{font-style:normal;color:#8fc2f7}
+  .hero p.lead{font-size:15px;color:#cfe2f7;max-width:660px;margin:0 0 22px}
+  .hero-cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .hero .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+  .hero-mail{margin:14px 0 0;font-size:13px;color:#bcd6f2}
+  .mailbtn{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.6);border-radius:9px;
+    padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:#fff;cursor:pointer}
+  .mailbtn:hover{background:rgba(255,255,255,.26)}
+  .mailstate{margin-left:8px;font-weight:700;font-size:12.6px}
+
+  .kbar{background:var(--card);border-bottom:1px solid var(--line)}
+  .kbar .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px 20px}
+  .kbar div{text-align:center}
+  .kbar b{display:block;font-size:13.5px;font-weight:800;color:var(--brand)}
+  .kbar span{font-size:11.5px;color:var(--sub)}
+  @media(max-width:640px){.kbar .wrap{grid-template-columns:repeat(2,1fr)}}
+
+  section{padding:36px 0}
+  h2{font-size:22px;font-weight:800;letter-spacing:-.3px;margin:0 0 6px}
+  .sub{color:var(--sub);font-size:14px;margin:0 0 20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+        padding:20px;box-shadow:var(--shadow)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+
+  ul.ticks{list-style:none;padding:0;margin:10px 0 0}
+  ul.ticks li{position:relative;padding-left:22px;margin-bottom:8px;font-size:14px}
+  ul.ticks li:before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+
+  .tier{border:1px solid var(--line);border-radius:var(--r);background:var(--card);
+        padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .tier .tier-tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.5px;
+    border-radius:6px;padding:2px 8px;margin-bottom:8px;background:#eef4fb;color:var(--brand)}
+  .tier.hv .tier-tag{background:#fdeaea;color:var(--accent)}
+  .tier h3{margin:0 0 4px;font-size:17px;font-weight:800}
+  .tier .spec{font-size:13px;color:var(--sub);margin-bottom:8px}
+  .tier .pick{font-size:13.5px;margin:0;padding-top:8px;border-top:1px dashed var(--line)}
+  .tier .pick b{color:var(--brand)}
+
+  .caveat{background:#fffaf0;border:1px solid #f2dca8;border-left:4px solid #d99a00;
+          border-radius:var(--r);padding:18px 20px}
+  .caveat h3{margin:0 0 8px;font-size:16px;font-weight:800;color:#8a6100}
+  .caveat p{margin:0;font-size:14px;line-height:1.7}
+
+  .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .shots figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:12px;
+                overflow:hidden;box-shadow:var(--shadow)}
+  .shots img{width:100%;height:170px;object-fit:contain;display:block;padding:10px;background:#fff}
+  .shots figcaption{font-size:11.5px;color:var(--sub);padding:7px 10px;border-top:1px solid var(--line);text-align:center}
+
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;
+           grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+  ol.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);
+              border-radius:var(--r);padding:16px;box-shadow:var(--shadow);font-size:13.5px}
+  ol.steps li:before{content:counter(s);display:inline-flex;align-items:center;justify-content:center;
+    width:24px;height:24px;border-radius:50%;background:var(--brand);color:#fff;
+    font-weight:800;font-size:12.5px;margin-bottom:8px}
+  ol.steps b{display:block;margin-bottom:4px}
+
+  .cta-end{background:linear-gradient(150deg,#0a2c50,#155a9c);color:#fff;border-radius:var(--r);
+           padding:30px;text-align:center}
+  .cta-end h2{color:#fff}
+  .cta-end p{color:#cfe2f7;margin:6px 0 18px;font-size:14.5px}
+  .cta-end .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.5)}
+
+  footer{background:#0d1b2a;color:#94a8bd;padding:26px 0;font-size:12.5px;margin-top:34px}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  footer a{color:#c9d8e8}
+  .disc{font-size:11px;color:#6d8199;margin-top:8px;max-width:620px}
 </style>
 </head>
 <body>
 
-<!-- 顶部导航 -->
-<div class="topbar">
-  <div class="logo">Ningbo <span>Shengye</span></div>
-  <a href="https://wa.me/447593945185?text=Hola%2C%20soy%20imprenta%2Fagencia%20y%20busco%20fabricante" class="whatsapp-btn" target="_blank">WhatsApp</a>
+<!-- ══════════ 顶栏 ══════════ -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="logo">SHANGYI OFFICE EQUIPMENT
+      <small>Refurbished production presses · Guangzhou, China</small></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="langsw" role="group" aria-label="Idioma">
+        <button id="lang-es" class="on" onclick="setLang('es')">ES</button>
+        <button id="lang-en" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#" class="btn btn-wa" data-lh>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════
+     ★ 主体是**广州尚亿**，不是宁波胜烨 —— 上一版错就错在这里：
+       标题写「Ningbo Shengye · Imprentas y Agencias」、内容讲"代工合作伙伴"，
+       那是印刷制品的页面，跟翻新设备线完全是两回事。
+     本节内容取自《翻新印刷设备手册》（2026-09-18，主体 SHANGYI OFFICE EQUIPMENT）。 -->
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Equipo reacondicionado · Konica Minolta</span>
+    <h1><span data-i18n="hero.h1a">Prensas de producción</span> <em data-i18n="hero.h1b">Konica Minolta reacondicionadas</em><br>
+      <span data-i18n="hero.h1c">Probadas, puestas a punto y enviadas desde China</span></h1>
+    <p class="lead" data-i18n="hero.lead">Misma clase de velocidad y resolución que la máquina nueva, por una fracción de la inversión.
+      Antes de comprometerte te enviamos el <b>vídeo de funcionamiento</b> y el <b>contador de impresiones</b> de la unidad concreta.</p>
+    <div class="hero-cta">
+      <a href="#" class="btn btn-wa" data-lh><span data-i18n="hero.wa">Hablar por WhatsApp</span> →</a>
+      <a href="#modelos" class="btn btn-ghost" data-i18n="hero.models">Ver modelos</a>
+    </div>
+    <p class="hero-mail">📧 <span data-i18n="hero.mailQ">¿Prefieres correo?</span>
+      <button type="button" class="mailbtn" data-mail="hello@joggerprint.com" onclick="copyMail(this)">
+        <span data-i18n="hero.copy">Copiar</span> hello@joggerprint.com</button>
+      <span class="mailstate" id="mailState" role="status" aria-live="polite"></span>
+    </p>
+  </div>
 </div>
 
-<!-- Hero -->
-<div class="hero">
-  <h1>Partner de fabricación<br>para imprentas y agencias</h1>
-  <p>OEM / ODM desde la fábrica en Ningbo. Muestras rápidas, calidad consistente, precios competitivos para tu flujo de trabajo.</p>
-  <a href="#contacto" class="hero-cta">Solicitar muestra gratis</a>
+<!-- ══════════ 信任条（手册里的四条） ══════════ -->
+<div class="kbar">
+  <div class="wrap">
+    <div><b data-i18n="k1b">Menos que nueva</b><span data-i18n="k1s">Misma clase, otra inversión</span></div>
+    <div><b data-i18n="k2b">Equipos en stock</b><span data-i18n="k2s">Unidades disponibles</span></div>
+    <div><b data-i18n="k3b">Soporte técnico</b><span data-i18n="k3s">Por WhatsApp</span></div>
+    <div><b data-i18n="k4b">Prueba antes de embarcar</b><span data-i18n="k4s">Vídeo de funcionamiento</span></div>
+  </div>
 </div>
 
 <div class="wrap">
-  <!-- 优势 -->
-  <div class="section">
-    <h2>¿Por qué trabajar con nosotros?</h2>
-    <p>Entendemos las necesidades de imprentas y agencias de publicidad que buscan partners de fabricación confiables.</p>
-    
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon">🎯</div>
-        <h3>OEM / ODM</h3>
-        <p>Fabricamos según tus especificaciones o creamos diseño desde cero.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">⚡</div>
-        <h3>Muestras rápidas</h3>
-        <p>7 días para muestra física, 24h para proof digital.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">📐</div>
-        <h3>Tecnología avanzada</h3>
-        <p>CNC cutting, impresión full color, acabados premium.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">💰</div>
-        <h3>Precios de fábrica</h3>
-        <p>Sin intermediarios, márgenes competitivos para ti.</p>
+
+  <!-- ══════════ 为什么买翻新 ══════════ -->
+  <section>
+    <h2 data-i18n="why.h">Por qué comprar reacondicionado</h2>
+    <p class="sub" data-i18n="why.sub">La economía, sin adornos.</p>
+    <div class="card">
+      <p style="margin-top:0" data-i18n="why.p">Una prensa de producción nueva de gama alta es un compromiso de seis cifras
+        con una curva de depreciación de varios años. Una unidad reacondicionada profesionalmente de la misma generación
+        hace <b>el mismo trabajo</b> por una fracción de la inversión — y se paga sola en meses, no en años.</p>
+      <ul class="ticks">
+        <li data-i18n="why.t1">Menor coste de capital que el modelo nuevo equivalente</li>
+        <li data-i18n="why.t2">Misma clase de resolución y velocidad nominal</li>
+        <li data-i18n="why.t3">Periodo de retorno más corto — produce mientras se deprecia menos</li>
+      </ul>
+    </div>
+
+    <h2 style="margin-top:26px" data-i18n="who.h">Quién compra reacondicionado</h2>
+    <div class="grid2" style="margin-top:14px">
+      <div class="card"><b data-i18n="who.1t">Imprentas que amplían capacidad</b>
+        <p style="margin:6px 0 0;font-size:13.5px;color:var(--sub)" data-i18n="who.1d">Una segunda prensa de producción sin pedir un segundo crédito: acepta trabajos más grandes sin arriesgar el negocio.</p></div>
+      <div class="card"><b data-i18n="who.2t">Nuevos negocios de impresión</b>
+        <p style="margin:6px 0 0;font-size:13.5px;color:var(--sub)" data-i18n="who.2d">Entra al mercado de producción con inversión inicial y sube de gama cuando la cartera esté construida.</p></div>
+      <div class="card"><b data-i18n="who.3t">Departamentos de impresión internos</b>
+        <p style="margin:6px 0 0;font-size:13.5px;color:var(--sub)" data-i18n="who.3d">Trae el trabajo de color de tiradas largas a casa y deja de pagar precios de terceros.</p></div>
+      <div class="card"><b data-i18n="who.4t">Distribuidores de equipo usado</b>
+        <p style="margin:6px 0 0;font-size:13.5px;color:var(--sub)" data-i18n="who.4d">Stock de una unidad probada, con vídeo de funcionamiento e informe de estado documentado.</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════ 机型分级 ══════════
+       手册核心论点：ppm 是所有人都在报的数，却是最差的选法。
+       真正区分机型的是「平台代次 / 月负荷 / 可处理介质」。 -->
+  <section id="modelos">
+    <h2 data-i18n="m.h">Modelos — encuentra tu nivel primero</h2>
+    <p class="sub" data-i18n="m.sub">Las páginas por minuto son el número que todos citan y la peor forma de elegir.
+      Dos prensas pueden declarar 100 ppm y ser máquinas completamente distintas.</p>
+
+    <div class="tier hv">
+      <span class="tier-tag" data-i18n="m.t1tag">ALTO VOLUMEN</span>
+      <h3>AccurioPress C14000 · C12000</h3>
+      <div class="spec" data-i18n="m.t1spec">120–140 ppm color · ciclo de trabajo 2,2–2,5 millones de impresiones/mes</div>
+      <p class="pick" data-i18n="m.t1pick">Para ti si: tienes un taller donde el color ya está en cola y la prensa casi nunca queda inactiva.
+        <b>¿C14000 o C12000?</b> Misma plataforma, 20 ppm de diferencia. Si no trabajas realmente a tope, la C12000 es mejor compra.</p>
+    </div>
+
+    <div class="tier">
+      <span class="tier-tag" data-i18n="m.t2tag">ALTO VOLUMEN · FORMATO LARGO</span>
+      <h3>AccurioPress C7100 · C7090</h3>
+      <div class="spec" data-i18n="m.t2spec">90–100 ppm color · ciclo de trabajo 1,6–1,8 millones de impresiones/mes</div>
+      <p class="pick" data-i18n="m.t2pick">Para ti si: necesitas <b>hojas largas, banners o trabajos sobredimensionados</b> junto a la producción normal.
+        La capacidad de formato largo (hasta 1.300 mm) importa más que los 10 ppm entre ambas.</p>
+    </div>
+
+    <div class="tier">
+      <span class="tier-tag" data-i18n="m.t3tag">GAMA MEDIA</span>
+      <h3>AccurioPress C6100 · C6085</h3>
+      <div class="spec" data-i18n="m.t3spec">85–100 ppm color</div>
+      <p class="pick" data-i18n="m.t3pick">Para ti si: eres una imprenta mediana y el volumen aún no llega a nivel insignia.
+        Compra la clase de velocidad que realmente vas a llenar.</p>
+    </div>
+
+    <div class="tier">
+      <span class="tier-tag" data-i18n="m.t4tag">PRODUCCIÓN DE ENTRADA</span>
+      <h3>AccurioPress C4080 · C4070 · C4065</h3>
+      <div class="spec" data-i18n="m.t4spec">65–80 ppm color</div>
+      <p class="pick" data-i18n="m.t4pick">Para ti si: es tu primera prensa de producción, o vienes de una máquina de oficina.
+        Misma plataforma, tres niveles de velocidad — no pagues 15 ppm más de lo que tu mix necesita.</p>
+    </div>
+
+    <p class="sub" style="margin-top:12px;font-size:12.5px" data-i18n="m.disc">
+      Las velocidades indicadas son el máximo nominal del fabricante. La ficha exacta de la máquina que estés
+      considerando se confirma antes del pedido — en equipo usado la configuración cambia el rendimiento.</p>
+  </section>
+
+  <!-- ══════════ 诚实免责（差异化） ══════════ -->
+  <section>
+    <div class="caveat">
+      <h3 data-i18n="cav.h">La advertencia honesta</h3>
+      <p data-i18n="cav.p">Una prensa reacondicionada <b>no es una prensa nueva</b>. Su vida útil restante depende del total de
+        impresiones, del estado del cilindro y de cómo fue mantenida. Por eso mismo te enviamos un <b>vídeo de funcionamiento</b>
+        y el <b>contador de impresiones</b> antes de que te comprometas — y por eso también te diremos cuando una unidad
+        concreta <b>no vale el dinero</b>.</p>
+    </div>
+  </section>
+
+  <!-- ══════════ 设备实拍 ══════════ -->
+  <section>
+    <h2 data-i18n="sh.h">Equipos</h2>
+    <p class="sub" data-i18n="sh.sub">Unidades reales de nuestro stock. Te enviamos fotos y vídeo de la máquina concreta antes de la compra.</p>
+    <div class="shots">
+      <figure><img src="printer_assets/无水印_1.png" alt="Prensa de producción reacondicionada" loading="lazy"><figcaption data-i18n="sh.c1">Línea de producción completa</figcaption></figure>
+      <figure><img src="printer_assets/无水印_2.png" alt="AccurioPress reacondicionada" loading="lazy"><figcaption data-i18n="sh.c2">Unidad en stock</figcaption></figure>
+      <figure><img src="printer_assets/无水印_3.png" alt="Prensa Konica Minolta reacondicionada" loading="lazy"><figcaption data-i18n="sh.c3">Configuración con acabado</figcaption></figure>
+      <figure><img src="printer_assets/无水印_4.png" alt="Equipo de impresión reacondicionado" loading="lazy"><figcaption data-i18n="sh.c4">Módulos de alimentación</figcaption></figure>
+      <figure><img src="printer_assets/无水印_5.png" alt="Prensa de producción" loading="lazy"><figcaption data-i18n="sh.c5">Lista para inspección</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ══════════ 流程 ══════════ -->
+  <section>
+    <h2 data-i18n="pr.h">Cómo funciona</h2>
+    <p class="sub" data-i18n="pr.sub">Sin sorpresas: ves la máquina funcionando antes de pagar.</p>
+    <ol class="steps">
+      <li><b data-i18n="pr.1t">Nos dices qué necesitas</b><span data-i18n="pr.1d">Volumen mensual, tipo de trabajo (color, formato largo, acabado) y presupuesto.</span></li>
+      <li><b data-i18n="pr.2t">Te proponemos una unidad</b><span data-i18n="pr.2d">Con su contador de impresiones real y el informe de estado.</span></li>
+      <li><b data-i18n="pr.3t">Vídeo de funcionamiento</b><span data-i18n="pr.3d">La máquina imprimiendo, no una foto de catálogo. Si no vale el dinero, te lo decimos.</span></li>
+      <li><b data-i18n="pr.4t">Puesta a punto y embarque</b><span data-i18n="pr.4d">Servicio, embalaje para transporte marítimo y documentación de exportación.</span></li>
+    </ol>
+  </section>
+
+  <!-- ══════════ 收尾 CTA ══════════ -->
+  <section>
+    <div class="cta-end">
+      <h2 data-i18n="cta.h">¿Empezamos?</h2>
+      <p data-i18n="cta.p">Dinos qué produces y a qué volumen — te decimos qué unidad encaja y qué no.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a href="#" class="btn btn-wa" data-lh><span data-i18n="cta.wa">Escribir por WhatsApp</span> →</a>
+        <a href="#" class="btn btn-ghost" onclick="copyMail(this)" data-mail="hello@joggerprint.com"
+           data-i18n="cta.mail">Copiar correo</a>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- 产品 -->
-  <div class="section">
-    <h2>Capacidades de producción</h2>
-    <p>Desde prototipos hasta producción masiva, todo en una sola fábrica.</p>
-    
-    <div class="products">
-      <div class="product">
-        <div class="product-img">
-          <img src="landing_assets/own_own_home_050_Custom-Cardboard-Corrugated-Display-Stands-Racks-Units.jpg" alt="Cardboard Display">
-        </div>
-        <div class="product-info">
-          <h3>Display de cartón</h3>
-          <p>Corrugado, kraft, premium printing</p>
-        </div>
-      </div>
-      <div class="product">
-        <div class="product-img">
-          <img src="landing_assets/own_own_home_036_Full-Color-Printing-PVC-Foam-Display-Rack-for-Retail-S.jpg" alt="PVC Display">
-        </div>
-        <div class="product-info">
-          <h3>Display de PVC / Foam</h3>
-          <p>Duradero, full color, outdoor</p>
-        </div>
-      </div>
-      <div class="product">
-        <div class="product-img">
-          <img src="landing_assets/own_own_home_022_Custom-Foldable-Cardboard-Corrugated-Display-Stand-Rac.jpg" alt="Foldable Display">
-        </div>
-        <div class="product-info">
-          <h3>Foldable / POP</h3>
-          <p>Armado rápido, envío compacto</p>
-        </div>
-      </div>
-      <div class="product">
-        <div class="product-img">
-          <img src="landing_assets/own_own_home_021_Manufacturer-Custom-3-5-Tier-Modern-Eco-Friendly-Super.jpg" alt="Supermarket Display">
-        </div>
-        <div class="product-info">
-          <h3>Retail solutions</h3>
-          <p>Supermercados, tiendas, eventos</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 流程 -->
-  <div class="section">
-    <h2>Cómo funciona el partnering</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-content">
-          <h3>Envía tu proyecto</h3>
-          <p>Diseño, especificaciones o referencia — lo que necesites.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-content">
-          <h3>Proof digital 24h</h3>
-          <p>Te enviamos vista digital para aprobación rápida.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-content">
-          <h3>Muestra física 7 días</h3>
-          <p>Producimos muestra para revisión y aprobación.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-content">
-          <h3>Producción + envío</h3>
-          <p>Producción en masa y envío FOB a tu puerto o directa a cliente.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 信任数据 -->
-  <div class="section" style="text-align:center">
-    <div class="trust">
-      <div class="trust-item"><strong>10+</strong>Años OEM/ODM</div>
-      <div class="trust-item"><strong>200+</strong>Agencias aliadas</div>
-      <div class="trust-item"><strong>24h</strong>Proof digital</div>
-      <div class="trust-item"><strong>7 días</strong>Muestra física</div>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div class="cta-box" id="contacto">
-    <h2>¿Listo para colaborar?</h2>
-    <p>Envíanos tu próximo proyecto y recibe muestra gratis + cotización sin compromiso.</p>
-    <a href="https://wa.me/447593945185?text=Hola%2C%20soy%20imprenta%2Fagencia%20y%20busco%20fabricante%20OEM" target="_blank">Chatear por WhatsApp</a>
-  </div>
 </div>
 
-<!-- 悬浮 WhatsApp -->
-<a href="https://wa.me/447593945185?text=Hola%2C%20soy%20imprenta%2Fagencia%20y%20busco%20fabricante" class="float-wa" target="_blank" title="WhatsApp">💬</a>
-
 <footer>
-  <p>Ningbo Shengye Packaging Co., Ltd.<br>
-  Ningbo, China · WhatsApp: +44 7593 945185<br>
-  Correo: <a href="mailto:hello@joggerprint.com">hello@joggerprint.com</a><br>
-  Política de privacidad: esta página no envía datos a ningún servidor ni usa cookies de publicidad.</p>
+  <div class="wrap">
+    <div>
+      <b style="color:#e6eef7">SHANGYI OFFICE EQUIPMENT</b><br>
+      Guangzhou, Guangdong, China · <a href="mailto:hello@joggerprint.com">hello@joggerprint.com</a>
+      <div class="disc" data-i18n="ft.disc">Equipo de segunda mano. No afiliados al propietario original de la marca.
+        Las especificaciones se confirman antes del pedido.</div>
+    </div>
+    <div><a href="#" data-lh>WhatsApp +44 7593 945 185</a></div>
+  </div>
 </footer>
 
-
-<!-- 渠道与追踪（改 landing_assets/track.js 即可全站生效） -->
-<script>window.SY = { wa: "447593945185", moqCard: "100", moqBox: "200", sample: "7", lead: "15-20" };</script>
-<script>window.LH_API = "https://lead-hunter-trade.app.workbuddy.host";</script>
-<script src="landing_assets/track.js" defer></script>
+<script>
+/* 语言：与主落地页同一套机制 —— 默认西语（客户主市场在拉美），?lang=en 或手动切才英文。
+   ★ 英文文案只覆盖了关键区块；这是**有意的**（先把西语版做完整、可发），
+     其余区块切到英文时会保持西语 —— 不假装翻全了。下一步补齐。 */
+const I18N = {
+  es: {},
+  en: {
+    "hero.eyebrow":"Refurbished equipment · Konica Minolta",
+    "hero.h1a":"Production presses",
+    "hero.h1b":"Konica Minolta, refurbished",
+    "hero.h1c":"Tested, serviced and shipped from China",
+    "hero.lead":"Same speed class and resolution as the new machine, for a fraction of the investment. Before you commit we send the <b>running video</b> and the <b>impression count</b> of that specific unit.",
+    "hero.wa":"Chat on WhatsApp","hero.models":"See models","hero.mailQ":"Prefer email?","hero.copy":"Copy",
+    "k1b":"Less than new","k1s":"Same class, other budget",
+    "k2b":"Models in stock","k2s":"Units available",
+    "k3b":"Tech support","k3s":"Via WhatsApp",
+    "k4b":"Running proof before ship","k4s":"Video of the unit",
+    "why.h":"Why buy refurbished","why.sub":"The economics, without the gloss.",
+    "why.p":"A new flagship production press is a six-figure commitment with a multi-year depreciation curve. A professionally refurbished unit of the same generation does <b>the same job</b> for a fraction of the investment — and pays for itself in months, not years.",
+    "why.t1":"Lower capital cost than the equivalent new model",
+    "why.t2":"Same resolution and rated speed class",
+    "why.t3":"Shorter payback — it earns while it depreciates less",
+    "who.h":"Who buys refurbished",
+    "who.1t":"Print shops adding capacity","who.1d":"A second production press without a second loan.",
+    "who.2t":"New print businesses","who.2d":"Enter production at entry-level money, upgrade later.",
+    "who.3t":"In-plant / corporate print rooms","who.3d":"Bring long-run colour work back in-house.",
+    "who.4t":"Equipment dealers","who.4d":"A tested unit with running video and a documented condition report.",
+    "m.h":"Models — find your tier first",
+    "m.sub":"Pages per minute is the number everyone quotes and the worst way to choose. Two presses can both claim 100 ppm and be completely different machines.",
+    "m.t1tag":"HIGH VOLUME","m.t1spec":"120–140 ppm colour · duty cycle 2.2–2.5 million prints/month",
+    "m.t1pick":"Look here if: colour work is already queued and the press rarely idles. <b>C14000 or C12000?</b> Same platform, 20 ppm apart — the C12000 is the better buy unless you genuinely run flat out.",
+    "m.t2tag":"HIGH VOLUME · LONG SHEET","m.t2spec":"90–100 ppm colour · duty cycle 1.6–1.8 million prints/month",
+    "m.t2pick":"Look here if: you need <b>long sheets, banners or oversized work</b> alongside normal production. The long-sheet capability (up to 1,300 mm) matters more than the 10 ppm between them.",
+    "m.t3tag":"MID RANGE","m.t3spec":"85–100 ppm colour",
+    "m.t3pick":"Look here if: you are a mid-sized printer. Buy the speed class you will actually fill.",
+    "m.t4tag":"ENTRY PRODUCTION","m.t4spec":"65–80 ppm colour",
+    "m.t4pick":"Look here if: this is your first production press. Same platform, three speed tiers — do not pay for 15 ppm more than your job mix needs.",
+    "m.disc":"Speeds shown are the manufacturer's rated maximum. The exact specification sheet for the machine you are considering is confirmed before order — on used equipment, configuration changes performance.",
+    "cav.h":"The honest caveat",
+    "cav.p":"A refurbished press <b>is not a new press</b>. Its remaining life depends on total impressions, cylinder condition and how it was serviced. That is exactly why we send a <b>running video</b> and an <b>impression count</b> before you commit — and why we will tell you when a particular unit <b>is not worth the money</b>.",
+    "sh.h":"Equipment","sh.sub":"Real units from our stock. We send photos and video of the specific machine before you buy.",
+    "sh.c1":"Complete production line","sh.c2":"Unit in stock","sh.c3":"Configuration with finishing",
+    "sh.c4":"Paper feed modules","sh.c5":"Ready for inspection",
+    "pr.h":"How it works","pr.sub":"No surprises: you see the machine running before you pay.",
+    "pr.1t":"You tell us what you need","pr.1d":"Monthly volume, type of work (colour, long sheet, finishing) and budget.",
+    "pr.2t":"We propose a unit","pr.2d":"With its real impression count and condition report.",
+    "pr.3t":"Running video","pr.3d":"The machine printing, not a catalogue photo. If it is not worth the money, we say so.",
+    "pr.4t":"Service and shipping","pr.4d":"Servicing, sea-freight packing and export documentation.",
+    "cta.h":"Shall we start?","cta.p":"Tell us what you produce and at what volume — we tell you which unit fits and which does not.",
+    "cta.wa":"Message us on WhatsApp","cta.mail":"Copy email",
+    "ft.disc":"Pre-owned equipment. Not affiliated with the original brand owner. Specifications confirmed before order."
+  }
+};
+let curLang = (function(){
+  try { const q = new URLSearchParams(location.search).get("lang"); if (q === "en" || q === "es") return q; } catch (e) {}
+  return "es";
+})();
+function applyI18n(){
+  const d = I18N[curLang] || {};
+  document.querySelectorAll("[data-i18n]").forEach(function(el){
+    const k = el.getAttribute("data-i18n");
+    if (curLang === "es") { if (el.hasAttribute("data-es")) el.innerHTML = el.getAttribute("data-es"); return; }
+    if (!el.hasAttribute("data-es")) el.setAttribute("data-es", el.innerHTML);
+    if (d[k] != null) el.innerHTML = d[k];
+  });
+}
+function setLang(l){
+  curLang = l === "en" ? "en" : "es";
+  document.documentElement.lang = curLang;
+  const es = document.getElementById("lang-es"), en = document.getElementById("lang-en");
+  if (es) es.className = curLang === "es" ? "on" : "";
+  if (en) en.className = curLang === "en" ? "on" : "";
+  applyI18n();
+  try { history.replaceState(null, "", curLang === "en" ? "?lang=en" : location.pathname); } catch (e) {}
+}
+/* 复制邮箱：三级降级 —— mailto 在没配邮件客户端的机器上是**静默失败**的
+   （这正是我们主落地页上踩过的坑），所以这里也走复制而不是 mailto。 */
+function copyMail(btn){
+  const addr = (btn && btn.getAttribute("data-mail")) || "hello@joggerprint.com";
+  const st = document.getElementById("mailState");
+  const ok = function(){ if (st) { st.textContent = curLang === "en" ? "Email copied!" : "¡Correo copiado!"; st.style.color = "#7fe3c4"; } setTimeout(function(){ if (st) st.textContent = ""; }, 3500); };
+  const fail = function(){ if (st) { st.textContent = addr; st.style.color = "#ffd58a"; } };
+  const legacy = function(){ try { const t = document.createElement("textarea"); t.value = addr; t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); const d = document.execCommand("copy"); document.body.removeChild(t); d ? ok() : fail(); } catch (e) { fail(); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(addr).then(ok, legacy); else legacy();
+}
+/* WhatsApp：所有 data-lh 元素带上预设开场白 —— 客户点一下就能发，不用自己组织语言 */
+(function(){
+  const num = "447593945185";
+  const msg = "Hola, vi su página y me interesan las prensas de producción Konica Minolta reacondicionadas. ¿Qué unidades tienen en stock?";
+  document.querySelectorAll("[data-lh]").forEach(function(a){
+    if (a.tagName === "A") { a.href = "https://wa.me/" + num + "?text=" + encodeURIComponent(msg); a.target = "_blank"; a.rel = "noopener"; }
+  });
+})();
+applyI18n();
+setLang(curLang);
+</script>
 </body>
 </html>
